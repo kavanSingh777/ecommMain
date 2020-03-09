@@ -9,6 +9,9 @@ public class Cart {
     private int status_cart;
     private int status_wishlist;
 
+    public Cart() {
+    }
+
     public Cart(String user_id, String cart_id, int product_id, int quantity, float price) {
         this.user_id = user_id;
         this.cart_id = cart_id;

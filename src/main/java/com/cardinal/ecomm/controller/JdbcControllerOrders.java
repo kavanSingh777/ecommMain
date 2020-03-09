@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class OrdersController {
+public class JdbcControllerOrders {
     @Autowired
     JdbcTemplate jdbc;
 
     //insertimg into order
-    @PostMapping("/insert_order")
+    @PostMapping("/insertOrder")
     public String AddField(@RequestBody Orders ordersObject)
     {
         String query = "insert into orders(order_id,cart_id,ord_date,tot_price) values(?,?,?,?)";
@@ -49,7 +49,7 @@ public class OrdersController {
 
     //View all the orders of user
     @ResponseBody
-    @PostMapping(path = "/getAll_orders", produces = "application/json; charset=UTF-8")
+    @PostMapping(path = "/getAllOrders", produces = "application/json; charset=UTF-8")
     public List<Orders> getOrdersInfo()
     {
         String query = "select  * from orders";

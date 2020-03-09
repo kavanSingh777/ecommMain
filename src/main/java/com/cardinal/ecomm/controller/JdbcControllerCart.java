@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class CartController
+public class JdbcControllerCart
 {
     @Autowired
     JdbcTemplate jdbc;
@@ -85,8 +85,8 @@ public class CartController
         });
     }
     //Editing cart in the database with the value set from the POST body
-    @PostMapping("/editCart/{user_id}/{cart_id}/{product_id}")
-    public String editOneField(@PathVariable("user_id") String user_id,@PathVariable("cart_id") String cart_id,@PathVariable("product_id") int product_id, @RequestBody Cart cartObject)
+    @PostMapping("/editCart/{cart_id}/{user_id}/{product_id}")
+    public String editOneField(@PathVariable("cart_id") String cart_id,@PathVariable("user_id") String user_id,@PathVariable("product_id") int product_id, @RequestBody Cart cartObject)
     {
         String query = "update cart set quantity = ?, price = ? where user_id = ? and cart_id = ? and product_id = ? and status_cart=1";
 

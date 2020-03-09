@@ -2,11 +2,14 @@ package com.cardinal.ecomm.controller;
 
 
 import com.cardinal.ecomm.model.User;
+import org.json.simple.JSONObject;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+
 
 import java.sql.Array;
 import java.sql.PreparedStatement;
@@ -22,12 +25,14 @@ public class JdbcControllerUser
     JdbcTemplate jdbc;
 
     //INserting static values into the database
-//    @RequestMapping("/insert")
-//    public String index()
-//    {
-//        jdbc.execute("insert into user(name,email)values('kavan','kavan@sjdfksd.com')");
-//        return "data inserted Successfully";
-//    }
+    @RequestMapping("/insert")
+    public int index()
+    {
+        String n = "kavansdfkjsdhfkjsdfkjsdbfkjsd";
+        int a = n.hashCode();
+        //jdbc.execute("insert into user(name,email)values('kavan','kavan@sjdfksd.com')");
+        return a;
+    }
 //
 //   /* @RequestMapping("/insert/{n}/{e}")
 //    public String getFuntion(@PathVariable("n") String name1, @PathVariable("e") String email1)
@@ -59,32 +64,45 @@ public class JdbcControllerUser
 //        });
 //    }
     // Inserting name and email from the POST body
+
     @PostMapping("/insertUsers")
-    public String insertOneField(@RequestBody User userObject)
+    public JSONObject insertOneField(@RequestBody User userObject)
     {
+        JSONObject userResponse =  new JSONObject();
         String query = "insert into user values (?,?,?,?,?,?,?,?,?,?,?)";
 
-        return jdbc.execute(query, new PreparedStatementCallback<String>()
+        return jdbc.execute(query, new PreparedStatementCallback<JSONObject>()
         {
             @Override
-            public String doInPreparedStatement(PreparedStatement ps)
-                    throws SQLException, DataAccessException {
+            public JSONObject doInPreparedStatement(PreparedStatement ps)          {
 
                 //ps.setInt(1,e.getId());
                 //ps.setInt(1, userObject.getId());
-                ps.setInt(1,userObject.getUser_id());
-                ps.setString(2,userObject.getFname());
-                ps.setString(3,userObject.getLname());
-                ps.setString(4,userObject.getEmail());
-                ps.setLong(5,userObject.getPhone());
-                ps.setString(6,userObject.getAddress());
-                ps.setString(7,userObject.getCity());
-                ps.setString(8,userObject.getState());
-                ps.setString(9,userObject.getPostal_code());
-                ps.setString(10,userObject.getCountry());
-                ps.setInt(11,userObject.getLogged_flag());
-                ps.execute();
-                return "Query executed for INSERTING a value into user table";
+                try
+                {
+                    ps.setInt(1, userObject.getUser_id());
+                    ps.setString(2, userObject.getFname());
+                    ps.setString(3, userObject.getLname());
+                    ps.setString(4, userObject.getEmail());
+                    ps.setLong(5, userObject.getPhone());
+                    ps.setString(6, userObject.getAddress());
+                    ps.setString(7, userObject.getCity());
+                    ps.setString(8, userObject.getState());
+                    ps.setString(9, userObject.getPostal_code());
+                    ps.setString(10, userObject.getCountry());
+                    ps.setInt(11, userObject.getLogged_flag());
+                    ps.execute();
+                    userResponse.put("status","Success");
+                    userResponse.put("message","User  was successfully added");
+                }
+                catch(Exception e)
+                {
+                    userResponse.put("status","Failure");
+                    userResponse.put("message","User was not added");
+                    e.printStackTrace();
+                }
+                return userResponse;
+                //return "Query executed for INSERTING a value into user table";
 
             }
         });

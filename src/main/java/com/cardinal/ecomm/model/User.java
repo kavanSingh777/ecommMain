@@ -4,17 +4,35 @@ import java.math.BigInteger;
 
 public class User
 {
-    private int user_id;
-     private String fname;
-     private String lname;
-      private String email;
-      private long phone;
-      private  String address;
-    private  String city;
-    private  String state;
-    private  String  postal_code;
-    private  String  country;
-    private  int  logged_flag;
+    private int    user_id;
+    private String fname;
+    private String lname;
+    private String password;
+    private String email;
+    private long   phone;
+    private String address;
+    private String city;
+    private String state;
+    private String postal_code;
+    private String country;
+    private int    logged_flag;
+
+
+
+    public User(int user_id, String fname, String lname, String email, long phone, String address, String city, String state, String postal_code, String country, int logged_flag)
+    {
+        this.user_id = user_id;
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.postal_code = postal_code;
+        this.country = country;
+        this.logged_flag = logged_flag;
+    }
 
     public int getUser_id() {
         return user_id;
@@ -104,19 +122,5 @@ public class User
         this.logged_flag = logged_flag;
     }
 
-    public User(int user_id, String fname, String lname, String email, long phone, String address, String city, String state, String postal_code, String country, int logged_flag) {
-        this.user_id = user_id;
-        this.fname = fname;
-        this.lname = lname;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.postal_code = postal_code;
-        this.country = country;
-        this.logged_flag = logged_flag;
 
-
-    }
 }
